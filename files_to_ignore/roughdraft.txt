@@ -1,0 +1,54 @@
+def delete_wish_by_id(wish_id):
+    print("!!!!!!!!!!!REMOVE wish ENTIRELY!!!!!!!!!!!")
+
+    logged_in_user_id = session['logged_in_user_id']
+    logged_in_user = session['logged_in_user']
+
+
+    mysql = connectToMySQL("wish_list_db")
+
+    delete_by_id = f"DELETE from wish_list_db.wishes where wishes.id = {wish_id};"
+
+    mysql.query_db(delete_by_id)
+
+    return redirect("/dashboard")
+
+    ##############
+
+
+@app.route("/wishes/remove/<wish_id>")
+def remove_wish_coz_it_is_done(wish_id):
+
+    print("@@@@@@@@@ wish IS DONE SO I CALL REMOVE METHOD ABOVE @@@@@@@@@@")
+
+    # delete_wish_by_id(wish_id) # calling remove wish method from above
+
+
+    # return redirect("/wishes/remove/<wish_id>")
+
+
+    logged_in_user_id = session['logged_in_user_id']
+    logged_in_user = session['logged_in_user']
+
+
+    mysql = connectToMySQL("wish_list_db")
+
+    delete_by_id = f"DELETE from wish_list_db.wishes where wishes.id = {wish_id};"
+
+    mysql.query_db(delete_by_id)
+
+    return redirect("/dashboard")
+
+
+
+    ---------------------
+
+    <td><a href = "/wishes/{{ one_wish['id'] }}"> View </a> | 
+                            {% if one_wish["made_by_id"] == logged_in_user_id %}
+                                <a href = "/wishes/edit/{{ one_wish['id'] }}"> Edit </a> |
+                            {% endif %}
+                            <a href = "/wishes/add_to_my_wishes/{{ one_wish['id'] }}"> Add </a>
+                            {% if one_wish["made_by_id"] == logged_in_user_id %} 
+                            |  <a href = "/wishes/remove/{{ one_wish['id'] }}"> REMOVE </a>
+                            {% endif %}
+                        </td>

@@ -1,0 +1,65 @@
+Step 
+----
+
+1. pip freeze > requirements.txt ----- VIM
+### 6. GUNICORN
+
+vim wsgi.py
+
+from server import app as application
+if __name__ == "__main__":
+    application.run()
+
+(venv) ~/Jobs_Repo$ gunicorn --bind 0.0.0.0:5000 wsgi:application
+
+sudo vim /etc/systemd/system/Jobs_Repo.service
+
+~/myRepoName$ virtualenv venv --python=python3.6          // create the environment and call it venv
+~/myRepoName$ source venv/bin/activate                    // activate the environment
+(venv) ~/myRepoName$ pip install -r requirements.txt      // install everything that requirements.txt says you need
+(venv) ~/myRepoName$ pip install gunicorn                 // install gunicorn
+(venv) ~/myRepoName$ pip install {{anything you need that was not already in requirements.txt}}
+
+
+[Unit]
+Description=Gunicorn instance to serve Jobs_Repo
+After=network.target
+[Service]
+User=issa
+Group=www-data
+WorkingDirectory=/home/issa/Jobs_Repo
+Environment="PATH=/home/issa/Jobs_Repo/venv/bin"
+ExecStart=/home/issa/Jobs_Repo/venv/bin/gunicorn --workers 3 --bind unix:Jobs_Repo.sock -m 007 wsgi:application
+[Install]
+WantedBy=multi-user.target
+
+sudo systemctl start Jobs_Repo
+sudo systemctl enable Jobs_Repo
+
+sudo vim /etc/nginx/sites-available/Jobs_Repo
+
+server {
+    listen 80;
+    server_name 3.16.44.188;
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/issa/Jobs_Repo/Jobs_Repo.sock;
+    }
+}
+
+
+sudo ln -s /etc/nginx/sites-available/Jobs_Repo /etc/nginx/sites-enabled
+
+git pull origin master - a -m "this is a fetch and a merge in one command!"
+
+
+
+
+
+
+
+HMMM - My Two Sites
+
+http://13.58.115.194/
+
+http://3.16.44.188/

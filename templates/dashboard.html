@@ -1,0 +1,83 @@
+<html>
+<head>
+    <title>Handy Helper Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='flash_styles.css') }}">
+</head>
+<body>
+    <section class="jumbotron text-left">
+        <div class="container">
+            <div class="row">
+                <h1 class="col col-sm-offset-6 jumbotron-heading"> Hello, {{logged_in_user}}!</h1>
+                <div class="col col-sm-offset-9 h5">  <a href = "/logout">    LOGOUT   </a>
+                    <a href = "/wishes/stats" class="jumbotron text-left"> <button type="submit" class="btn btn-primary btn-purple"> View Stats </button></a>
+                    <a href = "/wishes/new" class="jumbotron text-left"> <button type="submit" class="btn btn-primary btn-green"> Make a wish! </button></a>
+                </div>
+            </div>
+        </div>
+            
+        </div>
+    </section>
+    <div class="container">
+            <h1>Your Wish List</h1>
+            <table class = "table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Wish Item</th>
+                        <th scope="col">Date Added</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for my_wish in my_wishes %}
+                    <tr>
+                        <th scope="row"> {{ my_wish["id"] }}</th>
+                        <td>{{ my_wish["title"] }} </td>
+                        <td>{{ my_wish["created_at"] }} </td>
+                        <td>
+                            <a href = "/wishes/remove_wish/{{ my_wish['id'] }}"> Remove </a> |
+                            <a href = "/wishes/edit/{{ my_wish['id'] }}"> Edit </a> | 
+                            <a href = "/wishes/grant/{{ my_wish['id'] }}"> Granted! </a> 
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <br>
+        <h1>Granted Wishes</h1>
+            <table class = "table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Wish Item</th>
+                        <th scope="col">Wisher</th>
+                        <th scope="col">Date Added</th>
+                        <th scope="col">Date Granted</th>
+                        <!-- <th scope="col">Likes</th>
+                        <th scope="col">Actions</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for one_wish in all_wishes %}
+                    <tr>
+                        <th scope="row"> {{ one_wish["id"] }}</th>
+                        <td>{{ one_wish["title"] }} </td>
+                        <td>{{ one_wish["made_by_id"] }}</td>
+                        <td>{{ one_wish["created_at"] }} </td>
+                        <td>{{ one_wish["granted_at"] }} </td>
+                        <td>{{ one_wish[""] }} </td>
+                        {# if  #}
+                            <!-- <td><a href = "/wishes/like/{{ one_wish['id'] }}"> Like </a>
+                            </td> -->
+                        {# endif #}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <br>
+            <br>
+    </div>
+</body>
+</html>

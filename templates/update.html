@@ -1,0 +1,62 @@
+<html>
+<head>
+    <title>Edit wish</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='flash_styles.css') }}">
+</head>
+<body>
+    <section class="jumbotron text-left">
+        <div class="row">
+            <div class="col-md-4 ml-auto"><h4> <a href = "/logout"> LOGOUT </a></h4> </div>
+        </div>
+        <h3 class="jumbotron-heading"> Hello, {{logged_in_user}}! Let's edit your wish! </h3>
+        <div name = "edit_wish" class = "edit_wish">
+            <form action="/wishes/edit/{{ displayed_wish[0]['id'] }}" method="POST">
+                <div class="form-group align-items-center">
+
+                  <div class="col-sm-3 my-1">
+                      <input type="hidden" class="form-control" id="inlineFormInputName" name ="made_by_id" value={{logged_in_user_id}}>
+                    <label class="sr-only" for="inlineFormInputName">Title</label>
+                    I wish for [Item]->[Title]:  <input type="text" class="form-control" id="inlineFormInputName" name="title" value = "{{ displayed_wish[0]['title'] }}">
+                      {% with errors = get_flashed_messages(category_filter=["update_title_error"]) %}
+                        <ul class = "error">
+                          <li> {{ errors[0] }} </li>
+                        </ul>
+                      {% endwith %}
+                  </div>
+                  <br>
+                <div class="col-sm-3 my-1">
+                    <label class="sr-only" for="inlineFormInputName">Description</label>
+                    Description: <input type="text" class="form-control" id="inlineFormInputName" name="wish_desc" value = "{{ displayed_wish[0]['wish_desc'] }}">
+                    {% with errors = get_flashed_messages(category_filter=["update_desc_error"]) %}
+                        <ul class = "error">
+                          <li> {{ errors[0] }} </li>
+                        </ul>
+                      {% endwith %}
+                </div>
+                <br>
+                <div class="col-sm-3 my-1">
+                
+                <label class="sr-only" for="inlineFormInputGroupUsername">Location</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    Granted_Or_NOT_Hidden_Location: <div class="input-group-text">@</div>
+                  </div>
+                  <input type="hidden" class="form-control" id="inlineFormInputGroupUsername" placeholder="granted_or_not" name="granted_or_not" value = "{{ displayed_wish[0]['location'] }}">
+                </div>
+              </div>
+              <br>
+              <div class="col_sm3 my-1">
+                <inpout type = "hidden" name = "liked_by_id" value = {{logged_in_user_id}}></inpout>
+            </div>
+
+                  <br>
+                  <div class="col-auto my-1">
+                    <button type="submit" class="btn btn-primary btn-black col-sm-1" color="green">Submit</button>
+                   </form>  <a href = "/dashboard"><button type="submit" class="btn btn-primary btn-red">Cancel</button></a>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

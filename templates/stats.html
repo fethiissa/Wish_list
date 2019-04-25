@@ -1,0 +1,25 @@
+<html>
+<head>
+    <title>View wish</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='flash_styles.css') }}">
+</head>
+<body>
+    <section class="jumbotron text-left">
+        <section class="jumbotron text-right">
+            <h5><a href = "/dashboard" class="jumbotron text-right"> Dashboard </a> | <a href = "/logout" class="jumbotron text-right"> LOGOUT </a></h5>
+        </section>
+        <div class="container">
+            <h3 class="jumbotron-heading"> Hey {{logged_in_user}}! Here are your stats </h3>
+            <br>
+            <br>
+            <h4>Total wishes granted so far for all users:  {{ total_granted_wishes[0]["total"]  }} </h4>
+            <br>
+            <h5>
+            <p>Your Granted Wishes: {{ user_granted_wishes[0]["granted"] }} </p><br>
+            <p>Your Pending Wishes: {{ user_pending_wishes[0]["pending"] }} </p><br>
+            </h5>
+        </div>
+    </section>
+</body>
+</html>

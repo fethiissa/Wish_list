@@ -1,0 +1,56 @@
+
+.success {
+    text-emphasis-color: green;
+    list-style-type: none;
+    color: green
+}
+
+.error {
+    text-emphasis-color: red;
+    list-style-type: none;
+    color: red
+}
+
+.line-in-middle {
+    width:400px;
+    height:777px;
+	  background: linear-gradient(to right, 
+	                              transparent 0%, 
+	                              transparent calc(50% - 0.81px), 
+	                              black calc(50% - 0.8px), 
+	                              black calc(50% + 0.8px), 
+	                              transparent calc(50% + 0.81px), 
+	                              transparent 100%); 
+    }
+    
+.btn-black {
+    background-color:#000;
+    color: #FFF;}
+
+.btn-black:hover {
+    color: #FFF;
+}
+
+.btn-green {
+    background-color: green;
+    color: #FFF;}
+
+.btn-green:hover {
+    color: #FFF;
+}
+
+.btn-red {
+    background-color: red;
+    color: #FFF;}
+
+.btn-green:hover {
+    color: #FFF;
+}
+
+.btn-purple {
+    background-color:purple;
+    color: #FFF;}
+
+.btn-green:hover {
+    color: #FFF;
+}

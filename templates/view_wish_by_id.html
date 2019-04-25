@@ -1,0 +1,26 @@
+<html>
+<head>
+    <title>View wish</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='flash_styles.css') }}">
+</head>
+<body>
+    <section class="jumbotron text-left">
+        <section class="jumbotron text-right">
+            <h5><a href = "/dashboard" class="jumbotron text-right"> Dashboard </a> | <a href = "/logout" class="jumbotron text-right"> LOGOUT </a></h5>
+        </section>
+        <div class="container">
+            <h3 class="jumbotron-heading"> Item: {{ displayed_wish[0]["title"] }} </h3>
+            <br>
+            <br>
+            <h5>
+            <p>Description: {{ displayed_wish[0]["wish_desc"] }} </p><br>
+            <p>Date Addes: {{ displayed_wish[0]["created_at"] }}</p>
+            <p>Wish Made By: {{ displayed_wish[0]["made_by_id"] }}</p>
+            <br>
+            <a href = "/wishes/add_to_my_wishes/{{ displayed_wish[0]['id'] }}"> Add to My wishes </a>  |  <a href = "/wishes/give_up/{{ displayed_wish[0]['id'] }}"> GIVE UP </a>
+            </h5>
+        </div>
+    </section>
+</body>
+</html>

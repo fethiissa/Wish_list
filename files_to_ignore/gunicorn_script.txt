@@ -1,0 +1,80 @@
+sudo vim /etc/systemd/system/WallRepo.service
+
+
+sudo vim chmod -R 777 /etc/systemd/system/WallRepo.service
+
+
+
+sudo vim /etc/systemd/system/{{project}}.service
+
+fdupes /etc/systemd/system/
+
+
+[Unit]
+Description=Gunicorn instance to serve WallRepo
+After=network.target
+[Service]
+User=fethiissa
+Group=www-data
+WorkingDirectory=/home/fethiissa/WallRepo
+Environment="PATH=/home/fethiissa/WallRepo/venv/bin"
+ExecStart=/home/fethiissa/WallRepo/venv/bin/gunicorn --workers 3 --bind unix:WallRepo.sock -m 007 wsgi:application
+[Install]
+WantedBy=multi-user.target
+
+
+
+sudo systemctl start WallRepo
+sudo systemctl enable WallRepo
+
+NGINX
+
+sudo vim /etc/nginx/sites-available/WallRepo
+===============================================================
+
+
+NGINX WITH CHMOD
+
+sudo vim chmod -R 777 /etc/nginx/sites-available/WallRepo
+
+CHMOD ON CUUENT FILE(%)
+
+sudo vim chmod -R 777 % 
+
+
+
+
+server {
+    listen 80;
+    server_name 13.58.115.194;
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/fethiissa/WallRepo/WallRepo.sock;
+    }
+}
+
+
+sudo ln -s /etc/nginx/sites-available/WallRepo /etc/nginx/sites-enabled
+
+WITH FULL PATH
+==============
+
+
+sudo ln -sf /etc/nginx/sites-available/WallRepo /etc/nginx/sites-enabled
+
+
+DIRECT LOGIN AS FETHIISSA
+=========================
+
+ssh -i /Applications/SECRET_AWS/PEM_WallRepo/flask_pem.pem fethiissa@ec2-13-58-115-194.us-east-2.compute.amazonaws.com;
+
+
+MYSQL CSV DATA LOADING TO DBS ON server
+=========================================
+
+LOAD DATA LOCAL INFILE 'abc.csv' INTO TABLE abc
+FIELDS TERMINATED BY ',' 
+ENCLOSED BY '"' 
+LINES TERMINATED BY '\r\n'
+IGNORE 1 LINES
+(col1, col2, col3, col4, col5...);

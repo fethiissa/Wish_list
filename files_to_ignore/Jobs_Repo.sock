@@ -1,0 +1,11 @@
+[Unit]
+Description=Gunicorn instance to serve Jobs_Repo
+After=network.target
+[Service]
+User=issa
+Group=www-data
+WorkingDirectory=/home/issa/Jobs_Repo
+Environment="PATH=/home/issa/Jobs_Repo/venv/bin"
+ExecStart=/home/issa/Jobs_Repo/venv/bin/gunicorn --workers 3 --bind unix:Jobs_Repo.sock -m 007 wsgi:application
+[Install]
+WantedBy=multi-user.target
